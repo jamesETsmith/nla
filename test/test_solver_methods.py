@@ -2,6 +2,7 @@ import numpy as np
 import numpy.testing as npt
 from nla.solver.power_method import power_method
 from nla.solver.inverse_method import inverse_method
+from nla.solver.qr import gram_schmidt
 
 decimals = 7
 np.random.seed(20)
@@ -60,3 +61,36 @@ def test_inverse_method():
     # Test
     eigenvector_test(v[:, 0], v_approx)
     npt.assert_almost_equal(w_approx, w[0], decimal=decimals)
+
+
+def test_gram_schmidt():
+    """
+    """
+    A_unsym = np.random.random((N, N))
+    A = np.dot(A_unsym, A_unsym.T)
+    # A = np.array([[12, -51, 4], [6, 167, -68], [-4, 24, -41]])
+
+    # Reference
+    Q, R = np.linalg.qr(A)
+    print()
+    # print(Q)
+
+    # Approximate method
+    Q_approx, R_approx = gram_schmidt(A)
+
+    # Test Qs
+    print(np.linalg.norm(Q - Q_approx))
+    print(np.linalg.norm(Q + Q_approx))
+    print(np.linalg.norm(R - R_approx))
+    print(np.linalg.norm(R + R_approx))
+
+    if np.linalg.norm(Q - Q_approx) < 10**-decimals:
+        npt.assert_equal(np.linalg.norm(Q - Q_approx) < 10**-decimals, True)
+    else:
+        npt.assert_equal(np.linalg.norm(Q + Q_approx) < 10**-decimals, True)
+
+    # Test Rs
+    if np.linalg.norm(R - R_approx) < 10**-decimals:
+        npt.assert_equal(np.linalg.norm(R - R_approx) < 10**-decimals, True)
+    else:
+        npt.assert_equal(np.linalg.norm(R + R_approx) < 10**-decimals, True)

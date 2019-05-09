@@ -4,7 +4,7 @@ from functools import reduce
 
 def inverse_method(A, w_guess, max_iter=1000, vec_tol=1e-6):
     """
-    The power method for solving an eigenvalue problem.
+    The inverse method for solving an eigenvalue problem.
 
     Args:
     -----
