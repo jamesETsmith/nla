@@ -42,12 +42,13 @@ install:
   - conda install -c anaconda pytest-cov
 
   - conda install -c anaconda cython
+  - conda install -c conda-forge codecov
 
 
 
 script:
   - python -m pip install -e . --user
-  - pytest --cov=nla -s -v --cov-report=xml test/
+  - pytest --cov=nla -s -v test/
 
 # Push the results back to codecov
 after_success:
