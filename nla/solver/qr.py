@@ -19,9 +19,10 @@ def gram_schmidt(A):
         # Normalize
         Q[:, i] /= np.linalg.norm(Q[:, i])
 
-    # print(np.linalg.norm(np.dot(Q, Q.T) - np.eye(Q.shape[0])))
+    # print("Q-Test", np.linalg.norm(np.dot(Q, Q.T) - np.eye(Q.shape[0])))
 
     # Calculate R
     R = np.dot(Q.T, A)
+    # print(R)
 
     return Q, R

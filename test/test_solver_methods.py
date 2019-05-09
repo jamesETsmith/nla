@@ -72,7 +72,7 @@ def test_gram_schmidt():
 
     # Reference
     Q, R = np.linalg.qr(A)
-    print()
+    # print(R)
     # print(Q)
 
     # Approximate method
@@ -85,12 +85,12 @@ def test_gram_schmidt():
     print(np.linalg.norm(R + R_approx))
 
     if np.linalg.norm(Q - Q_approx) < 10**-decimals:
-        npt.assert_equal(np.linalg.norm(Q - Q_approx) < 10**-decimals, True)
+        npt.assert_almost_equal(Q, Q_approx, decimal=10**-decimals)
     else:
-        npt.assert_equal(np.linalg.norm(Q + Q_approx) < 10**-decimals, True)
+        npt.assert_almost_equal(Q, -Q_approx, decimal=10**-decimals)
 
     # Test Rs
     if np.linalg.norm(R - R_approx) < 10**-decimals:
-        npt.assert_equal(np.linalg.norm(R - R_approx) < 10**-decimals, True)
+        npt.assert_almost_equal(R, R_approx, decimal=10**-decimals)
     else:
-        npt.assert_equal(np.linalg.norm(R + R_approx) < 10**-decimals, True)
+        npt.assert_almost_equal(R, -R_approx, decimal=10**-decimals)
