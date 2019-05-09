@@ -41,8 +41,14 @@ install:
   # Install Pytest
   - conda install -c anaconda pytest-cov
 
+  - conda install -c anaconda cython
+
 
 
 script:
   - python -m pip install -e . --user
   - pytest --cov=nla -s -v --cov-report=xml test/
+
+# Push the results back to codecov
+after_success:
+  - codecov
